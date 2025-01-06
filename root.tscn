@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cxl6288j0bml1"]
+
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_siwcl"]
+[ext_resource type="Texture2D" uid="uid://dq2sim23eip4" path="res://icon.svg" id="2_w2guf"]
+[ext_resource type="Texture2D" uid="uid://bpvldnavwswg7" path="res://Map.png" id="3_3wk5c"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l6j5r"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_nbsk1"]
+vertices = PackedVector2Array(374.648, 609.211, 110.672, 613.844, 35.1406, 71.8984, 197.094, 189.508, 318.32, 348.563, 255.68, 137.25, 212.367, 102.117, 782.039, 110.672, 481.273, 132.922, 681.688, 223.813, 569.898, 228.031, 689.078, 236.344, 989.063, 169.461, 989.953, 338.508, 545, 411.508, 963.781, 431.117, 1065.06, 391.453, 1118.18, 603, 993.93, 554.813, 486.469, 603, 545, 527.406)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(8, 7, 9, 10), PackedInt32Array(11, 12, 13, 14), PackedInt32Array(15, 16, 17, 18), PackedInt32Array(18, 17, 19, 20), PackedInt32Array(9, 11, 14, 10), PackedInt32Array(19, 10, 14), PackedInt32Array(19, 14, 20)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(190, 172, 22, 50, 102, 624, 387, 619, 328, 346, 269, 147, 477, 143, 559, 231, 474, 613, 1131, 613, 1072, 378, 952, 425, 981, 544, 555, 518, 555, 420, 1000, 347, 999, 157, 694, 225, 804, 101, 204, 92)])
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6pcxb"]
+
+[node name="Root" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+material = SubResource("CanvasItemMaterial_l6j5r")
+navigation_polygon = SubResource("NavigationPolygon_nbsk1")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(600, 380)
+motion_mode = 1
+script = ExtResource("1_siwcl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CircleShape2D_6pcxb")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.210938, 0.210938)
+texture = ExtResource("2_w2guf")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -100
+offset_left = 17.0
+offset_top = 50.0
+offset_right = 1123.0
+offset_bottom = 617.0
+texture = ExtResource("3_3wk5c")
