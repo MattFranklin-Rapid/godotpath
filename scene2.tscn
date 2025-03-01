@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://b530ae8kfelfr"]
+
+[ext_resource type="Script" path="res://scene_2.gd" id="1_dhtuv"]
+[ext_resource type="Script" path="res://door.gd" id="2_p4h64"]
+[ext_resource type="Texture2D" uid="uid://c5iq1oprx845c" path="res://Door.png" id="2_ull3p"]
+[ext_resource type="Texture2D" uid="uid://c6cnm8o827hmw" path="res://Floor Two.png" id="3_ql5p6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_56bq7"]
+size = Vector2(53, 122)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_i0b5k"]
+vertices = PackedVector2Array(226.469, 553.758, 118.391, 466.906, 80.2266, 365.141, 142.68, 326.109, 416.109, 337.047, 522.969, 620.961, 1019.26, 527.594, 838.633, 613.047, 717.688, 257.156, 1006.92, 292.453, 1081.39, 379.797)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5), PackedInt32Array(6, 7, 5, 4, 8, 9, 10)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(140, 316, 68, 361, 110, 473, 222, 563, 522, 631, 841, 623, 1027, 535, 1093, 378, 1012, 283, 717, 247, 415, 327)])
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_dhtuv")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 524.0
+offset_top = 35.0
+offset_right = 711.0
+offset_bottom = 58.0
+text = "This is the second Scene"
+
+[node name="Button" type="Button" parent="."]
+offset_left = 575.0
+offset_top = 79.0
+offset_right = 644.0
+offset_bottom = 110.0
+text = "SWITCH"
+
+[node name="Left Door" type="Area2D" parent="."]
+position = Vector2(114, 342)
+script = ExtResource("2_p4h64")
+roomPath = "res://scene1.tscn"
+target_pos = Vector2(973, 547)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left Door"]
+position = Vector2(26.5, 61)
+shape = SubResource("RectangleShape2D_56bq7")
+
+[node name="TextureRect" type="TextureRect" parent="Left Door"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_ull3p")
+metadata/_edit_use_anchors_ = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_i0b5k")
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -100
+offset_left = 55.0
+offset_top = 15.0
+offset_right = 1131.0
+offset_bottom = 651.0
+texture = ExtResource("3_ql5p6")
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

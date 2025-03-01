@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cxl6288j0bml1"]
 
-[ext_resource type="Script" path="res://character_body_2d.gd" id="1_siwcl"]
-[ext_resource type="Texture2D" uid="uid://dq2sim23eip4" path="res://icon.svg" id="2_w2guf"]
 [ext_resource type="Texture2D" uid="uid://bpvldnavwswg7" path="res://Map.png" id="3_3wk5c"]
 [ext_resource type="Texture2D" uid="uid://dmuk2ad4mhqj6" path="res://target.png" id="4_h25h1"]
 [ext_resource type="Texture2D" uid="uid://b5asmptrd8eij" path="res://painting.png" id="6_0mlpa"]
+[ext_resource type="Script" path="res://door.gd" id="6_x2s1u"]
+[ext_resource type="Texture2D" uid="uid://c5iq1oprx845c" path="res://Door.png" id="6_yiu6g"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l6j5r"]
 
@@ -13,46 +13,50 @@ vertices = PackedVector2Array(374.648, 609.211, 110.672, 613.844, 35.1406, 71.89
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 4, 3, 6), PackedInt32Array(5, 6, 7, 8), PackedInt32Array(8, 7, 9, 10), PackedInt32Array(11, 12, 13, 14), PackedInt32Array(15, 16, 17, 18), PackedInt32Array(18, 17, 19, 20), PackedInt32Array(9, 11, 14, 10), PackedInt32Array(19, 10, 14), PackedInt32Array(19, 14, 20)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(190, 172, 22, 50, 102, 624, 387, 619, 328, 346, 269, 147, 477, 143, 559, 231, 474, 613, 1131, 613, 1072, 378, 952, 425, 981, 544, 555, 518, 555, 420, 1000, 347, 999, 157, 694, 225, 804, 101, 204, 92)])
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6pcxb"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m7hij"]
+size = Vector2(53, 122)
 
 [node name="Root" type="Node2D"]
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="Node" type="Node" parent="."]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="Node"]
 material = SubResource("CanvasItemMaterial_l6j5r")
 navigation_polygon = SubResource("NavigationPolygon_nbsk1")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(600, 380)
-motion_mode = 1
-script = ExtResource("1_siwcl")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("CircleShape2D_6pcxb")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="CharacterBody2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-scale = Vector2(0.210938, 0.210938)
-texture = ExtResource("2_w2guf")
-
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Node"]
 z_index = -100
 offset_left = 17.0
 offset_top = 50.0
 offset_right = 1123.0
 offset_bottom = 617.0
 texture = ExtResource("3_3wk5c")
+metadata/_edit_lock_ = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="Sprite2D2" type="Sprite2D" parent="Node"]
 z_index = -1
-position = Vector2(1002, 450)
+position = Vector2(1325, 68)
 texture = ExtResource("4_h25h1")
 
-[node name="Button" type="Button" parent="."]
-offset_left = 841.0
-offset_top = 390.0
-offset_right = 948.0
-offset_bottom = 496.0
+[node name="Button" type="Button" parent="Node"]
+offset_left = 1164.0
+offset_top = 8.0
+offset_right = 1271.0
+offset_bottom = 114.0
 icon = ExtResource("6_0mlpa")
 
-[connection signal="pressed" from="Button" to="CharacterBody2D" method="go_to_painting"]
+[node name="Door" type="Area2D" parent="Node"]
+position = Vector2(1017, 423)
+script = ExtResource("6_x2s1u")
+roomPath = "res://scene1.tscn"
+target_pos = Vector2(148, 556)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node/Door"]
+position = Vector2(26.5, 61)
+shape = SubResource("RectangleShape2D_m7hij")
+
+[node name="TextureRect" type="TextureRect" parent="Node/Door"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("6_yiu6g")
+metadata/_edit_use_anchors_ = true

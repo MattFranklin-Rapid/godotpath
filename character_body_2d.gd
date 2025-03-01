@@ -27,6 +27,9 @@ func set_movement_target(movement_target: Vector2):
 func go_to_painting():
 	navigation_agent.target_position = Vector2(1002,450)
 
+func teleport(target_loc: Vector2):
+	self.global_position = target_loc
+
 func _physics_process(delta):
 	if navigation_agent.is_navigation_finished():
 		return
@@ -43,3 +46,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("click"):
 		return
 	set_movement_target(get_global_mouse_position())
+
+
+func _on_door_collider_area_entered(area: Area2D) -> void:
+	print('HELP Im a Dog')
+	var something = "e" in "abcd"
+	print(something)
+	Global.goto_scene(area.roomPath)
+	var newPos = area.target_pos
+	teleport(newPos)
+	set_movement_target(newPos)

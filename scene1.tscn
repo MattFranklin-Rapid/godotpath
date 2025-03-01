@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://vytt8yirmg8m"]
+
+[ext_resource type="Script" path="res://scene_1.gd" id="1_bfya1"]
+[ext_resource type="Texture2D" uid="uid://uuaxq4a8mlix" path="res://Floor One.png" id="2_oy0gs"]
+[ext_resource type="Script" path="res://left_door.gd" id="3_crw20"]
+[ext_resource type="Texture2D" uid="uid://c5iq1oprx845c" path="res://Door.png" id="3_tklo0"]
+[ext_resource type="Script" path="res://door.gd" id="3_udrbt"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_424bx"]
+vertices = PackedVector2Array(728.219, 424.891, 686.008, 308.328, 831.672, 301.313, 885.609, 421.172, 1036.38, 417.203, 1090.97, 620.109, 58.3203, 628.906, 64.6797, 429.922)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 3), PackedInt32Array(0, 3, 6), PackedInt32Array(0, 6, 7)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(55, 420, 48, 639, 1104, 630, 1044, 407, 892, 411, 838, 291, 672, 299, 714, 415)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7568v"]
+size = Vector2(53, 122)
+
+[node name="Node2D" type="Node2D"]
+position = Vector2(0, 1)
+script = ExtResource("1_bfya1")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 530.0
+offset_top = 9.0
+offset_right = 641.0
+offset_bottom = 32.0
+text = "This is Scene 1"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="."]
+offset_left = 567.0
+offset_top = 34.0
+offset_right = 618.0
+offset_bottom = 65.0
+text = "DO IT"
+metadata/_edit_use_anchors_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -100
+offset_left = 37.0
+offset_top = 12.0
+offset_right = 1113.0
+offset_bottom = 648.0
+texture = ExtResource("2_oy0gs")
+metadata/_edit_use_anchors_ = true
+metadata/_edit_lock_ = true
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_424bx")
+
+[node name="Left Door" type="Area2D" parent="."]
+position = Vector2(63, 505)
+script = ExtResource("3_crw20")
+roomPath = "res://root.tscn"
+target_pos = Vector2(1011, 563)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left Door"]
+position = Vector2(26.5, 61)
+shape = SubResource("RectangleShape2D_7568v")
+
+[node name="TextureRect" type="TextureRect" parent="Left Door"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_tklo0")
+metadata/_edit_use_anchors_ = true
+
+[node name="Right Door" type="Area2D" parent="."]
+position = Vector2(1018, 495)
+script = ExtResource("3_udrbt")
+roomPath = "res://scene2.tscn"
+target_pos = Vector2(400, 395)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right Door"]
+position = Vector2(26.5, 61)
+shape = SubResource("RectangleShape2D_7568v")
+
+[node name="TextureRect" type="TextureRect" parent="Right Door"]
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_tklo0")
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
